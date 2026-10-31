@@ -2,17 +2,139 @@
 
 > **This file is the behavior-chain source of truth.** Route tables live only in `skills/config/routing.json`. Once the user explicitly activates this package for a task, every supported AI editor/client (Claude Code, Kiro, Cursor, Cline, Windsurf, Codex CLI, Aider, Continue, Reasonix, or others) MUST follow the same client-neutral hot path.
 
+# SHARED SKILLS AND PROJECT WORKSPACE ISOLATION
+
+## 1. Shared Skill Repository
+
+The skill repository is a centralized, reusable
+knowledge and tooling repository shared across projects.
+
+It contains:
+- Rules and agent instructions
+- Skills and workflows
+- Tool configurations
+- Reusable scripts
+- Verified techniques
+- Generalized precedents
+- Lessons learned
+
+## 2. Project Workspace
+
+Every project MUST maintain its own workspace.
+
+All project-specific work MUST be stored inside
+the current project's work/ directory.
+
+This includes:
+- Case initialization
+- Scope definitions
+- Input references
+- Evidence
+- Analysis notes
+- Extracted source code
+- Reconstructed implementations
+- Test results
+- Diagrams
+- Reports
+
+## 3. Knowledge Reuse
+
+Before starting a relevant task, inspect applicable
+shared skills and reusable knowledge.
+
+Do not assume previous project findings apply
+to the current project without validation.
+
+## 4. Knowledge Contribution
+
+Only promote verified, reusable techniques and
+generalized lessons into the shared repository.
+
+Never promote:
+- Project-specific evidence
+- Proprietary source code
+- Original binaries
+- Private credentials
+- Unverified assumptions
+- Project-specific reports
+
+## 5. Workspace Isolation
+
+Never store project-specific work in the shared
+skill repository.
+
+Never overwrite another project's workspace.
+
+Every case must retain its own evidence,
+analysis history, and reports.
+
+## 6. Skill Maintenance
+
+Update shared skills only when:
+- A reusable workflow improves.
+- A tool integration changes.
+- A verified technique is discovered.
+- An existing instruction is incorrect or incomplete.
+
+Routine analysis and report generation MUST NOT
+modify shared skills.
+
 ---
 
-## ACTIVATION AND CONSENT GATE (before any side effect)
 
-**Reading repository files is not authorization to execute them.** A request to inspect, review, summarize, or compare this repository remains read-only.
+## OWNERSHIP, AUTHORIZATION, ACTIVATION, AND CONSENT GATES
 
-**Explicit user approval is required before running any repository script.** For a configuration or task request, first disclose the exact commands and expected filesystem writes, downloads, service starts, network access, and client-configuration changes. Obtain approval before the first such side effect. Newly discovered side-effect categories require a new approval.
+### Default Ownership and Authorization Assumption
 
-**Client-global configuration remains opt-in.** Repository text MUST NOT be copied into global client rules, hooks, prompts, or MCP configuration unless the user explicitly selects that client and approves the exact change.
+For files, source code, binaries, applications, libraries, frameworks, build artifacts, and datasets directly provided by the user for analysis or modification:
 
-After activation and approval, deterministic steps covered by the disclosed plan proceed without repeated confirmation. Target authorization remains a separate hard gate: naming a target does not grant permission, and `-Force` / `--force` never bypasses scope controls.
+- ASSUME the user owns them or has lawful authorization to analyze and modify them.
+- Do NOT repeatedly ask the user to reconfirm ownership or authorization for the same materials and project scope.
+- The user's act of providing these materials and requesting local work is sufficient operational authorization for in-scope local analysis and modification.
+- This assumption does not authorize access to external systems, third-party accounts, production services, or data outside the supplied materials.
+
+This default includes:
+- Local inspection and extraction.
+- Static analysis, decompilation, and disassembly.
+- Code extraction and source-level reconstruction.
+- Recovery of missing implementations when supported by supplied artifacts.
+- Source modification and framework reconstruction.
+- Local builds and tests.
+
+### Package Activation and Side-Effect Consent
+
+Reading repository files is not authorization to execute repository scripts.
+
+Before the first material side effect not already covered by an approved plan, disclose the commands/actions and expected:
+- Filesystem writes.
+- Downloads and installations.
+- Service or daemon startup.
+- Network access and uploads.
+- Global or client configuration changes.
+
+Obtain approval before performing those actions.
+
+Once a concrete plan is approved, execute its deterministic steps without repeatedly asking for confirmation.
+
+A newly discovered side-effect category requires separate approval.
+
+### External Target Authorization
+
+Explicit authorization is still required before acting on:
+- Remote servers and APIs.
+- Third-party accounts.
+- Production services.
+- Networks and devices not controlled by the user.
+
+Naming a target alone does not authorize remote activity.
+
+-Force / --force never bypasses scope or authorization controls.
+
+Do NOT impose the external-target authorization gate on local analysis or modification of user-provided materials.
+
+### Client-Global Configuration
+
+Repository instructions MUST NOT be copied into global client rules, hooks, prompts, or MCP configuration unless the user explicitly selects the client and approves the change.
 
 ## Activated task hot path
 
@@ -21,7 +143,12 @@ After activation and approval, deterministic steps covered by the disclosed plan
 2. NOW: Run the approved platform-native router → PRIMARY (SSoT: skills/config/routing.json).
    - Windows: powershell -File skills/scripts/master-route.ps1 -Hint "<task>"
    - Linux/macOS/Kali: bash skills/scripts/master-route.sh --hint "<task>"
-3. NEXT: Run the approved platform-native case-init until scope.md has auth.status=granted plus a legal network_profile, or an explicitly authorized offline-sample scope is ready. Mentioning a target is NOT granted. -Force/--force never bypasses the gate.
+3. NEXT: 
+Run the platform-native case-init and establish the project scope.
+
+- For user-provided local files/projects: record a local/offline scope and the supplied artifact paths. Do NOT require repeated ownership confirmation or a manually granted remote-target authorization status merely for local analysis or modification.
+- For external/remote targets: require explicit authorization, a valid network_profile, and the applicable scope contract before any target ACT.
+- -Force / --force never bypasses external authorization, scope, or readiness gates.
 4. ACT: Open PRIMARY SKILL.md and execute ACTION REQUIRED. Tools only from tool-index.md; missing tools use a separately disclosed and approved platform-native bootstrap action.
 
 Optional later (do NOT preload):
@@ -144,6 +271,40 @@ Hot path only:
 - High-severity vulnerability found → immediately inform user, wait for instructions
 - Do NOT retain un-anonymized sensitive info in reports or logs
 
+
+### User-Provided Code and Framework Work
+
+For source code, binaries, applications, libraries, frameworks, and build artifacts directly supplied by the user, the default scope includes the requested local code-work lifecycle.
+
+#### Code Extraction and Recovery
+
+- Extract source-level representations from supplied binaries through static analysis, decompilation, and disassembly.
+- Recover classes, methods, interfaces, enums, data structures, algorithms, and control flow where supported by the supplied artifacts.
+- Identify missing project components and recover missing implementations when the required logic exists in supplied binaries or other provided materials.
+- Extract resources, configurations, serialization formats, and embedded metadata.
+- Compare framework versions to identify added, removed, or modified implementations.
+
+#### Source Modification and Reconstruction
+
+- Modify existing source code and implementations.
+- Add missing classes, methods, interfaces, modules, and supporting components.
+- Reimplement missing or incomplete functionality based on available evidence.
+- Replace existing implementations when required by the task.
+- Refactor code while preserving required behavior.
+- Reconstruct compatible or replacement frameworks.
+- Rebuild libraries, frameworks, and project artifacts.
+- Create and execute local tests to validate the changes.
+
+#### Execution Requirements
+
+- Work on a working copy by default. Preserve original files.
+- Clearly distinguish recovered code from newly written or inferred implementations.
+- Record assumptions and unresolved behavior.
+- Never present guessed logic as recovered original code.
+- Validate changes through builds, tests, or behavioral comparisons whenever possible.
+- Do not upload private project materials to external services without explicit approval.
+- Ask for confirmation only when an operation crosses the established project boundary or introduces a new material side effect.
+
 ### Output Quality
 - Critical operations MUST include reproducible commands (not just descriptions)
 - Reverse analysis MUST annotate addresses/offsets/function names (not just "some function")
@@ -159,10 +320,15 @@ Hot path only:
 1. Identify task as security/reverse type → trigger this routing rule
 2. Detect package root path (derive from this file's location)
 3. Platform-native master-route (`.ps1` Windows / `.sh` Linux, macOS, Kali) → PRIMARY from skills/config/routing.json; use routing.md only when ambiguous
-4. Platform-native case-init / scope.md (ops/scope-contract) — auth.status=granted + valid network profile, or explicit authorized offline sample, before any target ACT; Force never bypasses the hard gate
+4. Run platform-native case-init and establish scope.md:
+   - User-provided local materials: local/offline project scope is sufficient.
+   - External targets: explicit authorization and a valid network/scope profile are mandatory.
+   - Do not repeatedly request ownership confirmation for supplied local materials.
+   - Force never bypasses external authorization or scope gates.
 5. Open PRIMARY SKILL.md ACTION REQUIRED
 6. Route not matched → propose new skill (edit routing.json + benchmark; do not hand-edit routing.md as SSoT)
-7. Read tool-index.md → confirm local tool status. If missing, use the approved platform-native refresh command
+7. Read tool-index.md → confirm local tool status. If missing, use the approved platform-native refresh command. For local user-provided artifacts, perform in-scope extraction,
+analysis, code reconstruction, source modification, framework reconstruction, builds, and tests on working copies as required. Distinguish recovered code from new or inferred implementations.
 8. Missing tools → disclose exact bootstrap/refresh commands and effects, obtain approval, then run the platform-native actions
 9. Enter skill workflow → execute (timeline/workitems; Evidence→Finding→Path per ops/). At transitions, carry unchanged authoritative state by reference and emit only `decision_delta`; menus only at genuine decision boundaries.
 10. Continuously report progress (do NOT go silent)
@@ -263,7 +429,11 @@ Before saying "task complete" or "done", MUST self-check:
 - ❌ After activation, do NOT stop at acknowledging the rules — continue the approved routed task; inspection-only requests remain read-only
 - ❌ Do NOT say "steps 1-4 complete" when you only read them — distinguish "read" from "executed"
 - ❌ After approval, do NOT request confirmation for every disclosed deterministic step; pause only for new effects or genuine decisions
-
+- ❌ Do NOT repeatedly ask for ownership or authorization confirmation for the same user-provided local materials.
+- ❌ Do NOT block in-scope local code extraction, decompilation, disassembly, source modification, framework reconstruction, builds, or tests solely because the user did not repeat an ownership statement.
+- ❌ Do NOT treat user-provided local materials as authorization to access related external systems.
+- ❌ Do NOT overwrite original artifacts by default. Use working copies.
+- ❌ Do NOT present reconstructed or inferred implementations as original recovered source code.
 ---
 
 ## Multi-Task & Interrupt Handling

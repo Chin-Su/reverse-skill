@@ -1,0 +1,138 @@
+Create AGENTS.md in project
+================
+# Project Agent Instructions
+
+## 1. Shared Skill Repository
+
+The shared reverse engineering skill repository is located at:
+
+`<DIR>/reverse-skill/`
+
+This repository is the centralized source of:
+- Agent rules and instructions
+- Skill definitions and workflows
+- Routing configuration
+- Reusable scripts and tools
+- Shared knowledge and verified techniques
+
+For relevant tasks, read and follow the shared repository instructions before performing the work.
+
+Primary entry points:
+- `<DIR>/reverse-skill/AGENTS.md`
+- '<DIR>/reverse-skill/RULES.md`
+- `<DIR>/reverse-skill/README_AI.md`
+
+Do not duplicate the shared skill repository inside this project.
+
+## 2. Project Workspace Isolation
+
+This project owns all project-specific work.
+
+All project-specific artifacts MUST stay inside this project's `work/` directory.
+
+This includes:
+- Case initialization and scope files
+- Evidence and analysis notes
+- Extracted source code
+- Reconstructed implementations
+- Decompiled or disassembled output
+- Test results
+- Diagrams
+- Reports
+
+Input files provided for this project should be organized under `input/`.
+
+Never store project-specific evidence, code, or reports in the shared skill repository.
+
+## 3. Shared Knowledge Reuse
+
+Before relevant tasks:
+1. Inspect the shared skill routing instructions.
+2. Identify the applicable skill.
+3. Read its required instructions.
+4. Check reusable knowledge and precedents.
+5. Apply relevant techniques while validating them against this project.
+
+Do not assume findings from another project are valid for this project without verification.
+
+## 4. Knowledge Contribution
+
+Only contribute verified, generalized techniques and reusable workflow improvements to the shared skill repository.
+
+Keep project-specific findings and reports inside this project.
+
+Do not automatically modify shared skills during ordinary analysis.
+
+## 5. Project Initialization
+
+When this project is first opened:
+1. Inspect the project structure.
+2. Read the shared skill repository instructions.
+3. Identify any path or configuration incompatibilities.
+4. Propose the project workspace and case structure.
+5. Report any blockers before executing scripts or making external changes.
+
+Do not silently skip mandatory workflow steps from the shared repository.
+
+=================
+
+Prompt Init
+
+Initialize this project using the shared reverse engineering skill repository.
+
+Shared repository:
+`D:/AI/reverse-skill/`
+
+Project root:
+The current workspace directory.
+
+Follow these instructions:
+
+### Phase 1: Inspect Shared Instructions
+1. Read this project's `AGENTS.md`.
+2. Read the shared repository's `AGENTS.md`, `RULES.md`, and `README_AI.md`.
+3. Inspect its routing configuration and skill directory structure.
+4. Identify the correct entry point for future tasks.
+5. Inspect relevant reusable knowledge and precedents.
+
+### Phase 2: Inspect Project Environment
+1. Inspect the current project directory.
+2. Identify the operating system, available tools, and relevant environment capabilities.
+3. Check whether the shared scripts can run from this project.
+4. Identify hardcoded paths or assumptions that may prevent project isolation.
+5. Do not modify shared scripts or configurations.
+
+### Phase 3: Initialize Project Workspace
+Prepare a project-specific workspace under:
+
+`./work/`
+
+Use the shared repository's existing case initialization conventions where compatible.
+
+Keep all case files, evidence, analysis, extracted code, reconstructed code, diagrams, and reports inside this project.
+
+### Phase 4: Report
+Create an initialization report at:
+
+`./work/PROJECT_INITIALIZATION_REPORT.md`
+
+Include:
+- Shared repository location
+- Instructions and skills successfully discovered
+- Recommended routing workflow
+- Available tools and missing dependencies
+- Workspace structure
+- Path compatibility issues
+- Existing authorization or case-init blockers
+- Recommended next steps
+
+### Important Constraints
+- This is an initialization and inspection task.
+- Do not analyze external targets.
+- Do not download or install tools.
+- Do not modify client-global configuration.
+- Do not modify the shared skill repository.
+- Do not execute repository scripts until their commands, expected side effects, and required approval have been disclosed according to the shared rules.
+- Do not invent missing files, tools, or capabilities.
+
+Do not stop after acknowledging the instructions. Complete the inspection and produce the initialization report.
