@@ -35,6 +35,10 @@
 | [llm-security](llm-security/SKILL.md) | Use for authorized security assessment of LLM applications and AI agents, including prompt injection, tool abuse, RAG exposure, memory poisoning, and model s... |
 | [macos-reverse](macos-reverse/SKILL.md) | Use for authorized macOS and Mach-O reverse engineering including codesign, Objective-C/Swift recovery, endpoint security surfaces, and Apple platform malwar... |
 | [malware-analysis](malware-analysis/SKILL.md) | Use when analyzing suspected malware through static, dynamic, and behavioral techniques, including IOC extraction, YARA or Sigma rules, sandboxing, and anti-... |
+| [surgical-changes](meta/surgical-changes/SKILL.md) | Use when writing or modifying code during an analysis — Frida/Objection scripts, IDAPython/Ghidra scripts, PoCs, smali or binary patches, solver scripts, or ... |
+| [systematic-debugging](meta/systematic-debugging/SKILL.md) | Use when a reverse-engineering or pentest step fails or behaves unexpectedly — a Frida hook never fires, a script crashes, a decompiler output looks wrong, a... |
+| [verification-before-completion](meta/verification-before-completion/SKILL.md) | Use when about to claim a reverse-engineering or pentest result is done, found, bypassed, decrypted, exploitable, or fixed — before writing the conclusion, r... |
+| [writing-skills](meta/writing-skills/SKILL.md) | Use when creating a new skill in this repository or upgrading an existing SKILL.md — writing the frontmatter description, deciding what goes in SKILL.md vers... |
 | [mobile-reverse](mobile-reverse/SKILL.md) | Use for authorized Android or iOS application reverse engineering and security testing, including APK or IPA analysis, runtime instrumentation, SSL pinning, ... |
 | [ot-ics](ot-ics/SKILL.md) | Use for authorized OT/ICS security assessment covering Purdue model zoning, PLC/SCADA exposure, industrial protocol discovery, and safe passive-first evaluat... |
 | [patch-diff-exploit](patch-diff-exploit/SKILL.md) | N-day 补丁差分到利用。从厂商发布的补丁里反推漏洞点、写 PoC、做成可用的攻击模块。 |
@@ -84,6 +88,10 @@ skills/js-reverse/SKILL.md/
 skills/llm-security/SKILL.md/
 skills/macos-reverse/SKILL.md/
 skills/malware-analysis/SKILL.md/
+skills/meta/surgical-changes/SKILL.md/
+skills/meta/systematic-debugging/SKILL.md/
+skills/meta/verification-before-completion/SKILL.md/
+skills/meta/writing-skills/SKILL.md/
 skills/mobile-reverse/SKILL.md/
 skills/ot-ics/SKILL.md/
 skills/patch-diff-exploit/SKILL.md/

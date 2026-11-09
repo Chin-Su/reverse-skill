@@ -79,6 +79,7 @@ description: Routes reverse engineering, exploitation, penetration testing, malw
 | **邮件安全** | `email-security/` | 钓鱼拆解、SPF/DKIM/DMARC、BEC |
 | **联邦身份** | `identity-federation/` | SAML/OIDC/OAuth SSO 流与错配 |
 | **RF / SDR** | `radio-sdr/` | 授权射频研究、默认只收 |
+| **Meta 流程技能** | `meta/` | 完成前验证 / 系统化排错 / 最小外科改动 / 编写 skill（不参与路由，由领域 skill 调用） |
 
 ## 统一入口
 

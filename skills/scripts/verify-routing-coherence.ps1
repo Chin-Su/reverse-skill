@@ -537,6 +537,27 @@ if (Test-Path -LiteralPath $bsc) {
     }
 }
 
+# --- meta process skills (cross-cutting, not routed) ---
+$metaSkills = @('verification-before-completion', 'systematic-debugging', 'surgical-changes', 'writing-skills')
+foreach ($m in $metaSkills) {
+    $mp = Join-Path $skillsRoot "meta/$m/SKILL.md"
+    if (Test-Path -LiteralPath $mp) {
+        $mt = Get-Content $mp -Raw -Encoding UTF8
+        if ($mt -match '(?m)^name:\s*' + [regex]::Escape($m) -and $mt -match '(?m)^description:\s*Use when') {
+            Ok "meta skill $m has name + 'Use when' description"
+        } else {
+            Bad "meta skill $m missing name/'Use when' description"
+        }
+    } else {
+        Bad "meta skill missing: meta/$m/SKILL.md"
+    }
+}
+
+# --- pilot skills carry the upgraded anatomy ---
+foreach ($p in @('apk-reverse', 'ida-reverse', 'malware-analysis', 'pentest-tools', 'attack-chain')) {
+    Assert-Fields (Join-Path $skillsRoot "$p/SKILL.md") @('Red Flags', 'verification-before-completion')
+}
+
 Write-Host "Scratch=$ScratchDir"
 if ($fail.Count -gt 0) {
     Write-Host ("FAILED {0}" -f $fail.Count) -ForegroundColor Red

@@ -101,12 +101,28 @@ description: <一句话描述适用场景和触发条件>
 2. `NOW`：读取 `../tool-index.md`，校验工具可用性和实际路径。
 3. `NEXT`：缺工具时调用 bootstrap，不要猜路径。
 4. `ACT`：进入“工作流”第一步并执行，不要停在确认状态。
+- `ON-FAIL`: 工具/脚本/hook 失败或结果异常 → `../meta/systematic-debugging/SKILL.md`；`ON-CODE`: 编写或修改脚本/PoC/patch → `../meta/surgical-changes/SKILL.md`
+
+## 常见借口与反驳 / Rationalizations
+<!-- 4-6 行本领域特有的偷懒借口 + 反驳；见 meta/writing-skills -->
+
+| 借口 | 反驳 |
+|------|------|
+| 「<本领域常见的错误假设>」 | <为什么错 + 应先做什么> |
+
+## 红旗信号 / Red Flags
+<!-- 4-6 条「正在走偏」的可观察信号 -->
+
+- <本领域典型的走偏信号>
 
 ## 任务完成自检（声称完成前 MUST 通过）
+- □ **MUST** 先执行 `../meta/verification-before-completion/SKILL.md`：每条结论有本会话新鲜证据，标注 `EXTRACTED` / `INFERRED`，报告含「未检查」小节
 - □ 我是否执行了工作流中的每一步（而不是只阅读）？
 - □ 我是否基于 `tool-index` 使用了真实工具路径？
 - □ 我是否产出了可复现证据（命令/脚本/截图/报告）？
 - □ 我是否完成并回写了 RULES 要求的 Checklist 项？
+
+> 这些流程块的完整写法与组合规则见 `meta/writing-skills/SKILL.md`；`meta/` 下的 skill 不参与路由，由领域 skill 在对应时刻调用。
 
 ### 3.2 新增 Skill 必须接入操作先例系统
 
@@ -170,6 +186,13 @@ description: <一句话描述适用场景和触发条件>
 ```
 
 在 SKILL.md 中把此模式放到真正有分岔的 decision boundary；不要机械地放到每个阶段末尾。
+
+### 3.5 渐进披露与 description（Progressive Disclosure）
+
+- `description` 是**触发条件**，`MUST` 以 "Use when …" 开头，写「什么时候路由到这里」而非流程摘要，并包含用户会用的中英关键词。
+- `SKILL.md` 目标 ≤ ~400 行：入口 + 流程 + 门闩。长清单 / payload / 命令速查 / 阶段细节下沉到 `references/<topic>.md`，在 SKILL.md 用一行链接并注明「何时读取」。
+- 可被机械检查的规则优先做成 `scripts/` 确定性脚本，而非散文。
+- 完整写法、组合规则（领域 skill 可调用 meta skill；meta skill 不得调用领域 skill）见 `meta/writing-skills/SKILL.md`。
 
 ---
 

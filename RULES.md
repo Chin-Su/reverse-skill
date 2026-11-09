@@ -340,6 +340,8 @@ analysis, code reconstruction, source modification, framework reconstruction, bu
 
 ## Completion Checklist (MUST NOT skip)
 
+> Before claiming completion, AI **MUST** run the completion gate in `skills/meta/verification-before-completion/SKILL.md`: every conclusion needs fresh in-session evidence, is labelled `EXTRACTED` / `INFERRED`, and the report carries a "not checked" section. This complements (does not replace) the self-audit below.
+
 After task completion (vulnerability verified / reverse complete / flag captured), AI **MUST** execute each item:
 
 ```text

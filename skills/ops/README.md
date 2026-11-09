@@ -21,6 +21,7 @@ Z3r0 启发、**本包形态**实现：
 - `../reverse-engineering/references/re-agent-workflow.md` — RE 四阶段  
 - `../pentest-tools/references/recon-pipeline.md` — 授权侦察 + Evidence 门  
 
+- Meta 流程技能：`../meta/`（完成前验证 / 系统化排错 / 最小外科改动 / 编写 skill；不参与路由，由领域 skill 调用）
 - 脚本：`../scripts/case-init.ps1`
 - 校验：`../scripts/verify-routing-coherence.ps1`（含 ops 契约检查）
 - 审查：`../case-review/scripts/review_case.py`（只读 Evidence 图检查）

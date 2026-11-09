@@ -13,6 +13,7 @@ description: Use for authorized multi-stage attack-path planning and orchestrati
 5. `NEXT`: 缺工具时调用 bootstrap，不要猜路径
 6. `ACT`: 按 `references/lifecycle-checklist.md` 过阶段门闩；每阶段更新 `timeline.md` + `workitems.md`（`../ops/timeline-workitem.md`）；发现提升为 Evidence/Finding
 7. 结束：`docs-generator` 报告必须含 Evidence 链
+- `ON-FAIL`: 工具/脚本/hook 失败或结果异常 → `../meta/systematic-debugging/SKILL.md`；`ON-CODE`: 编写或修改脚本/PoC/patch → `../meta/surgical-changes/SKILL.md`
 
 > 多阶段攻击路径规划与执行的总指挥。当任务需要"从 A 打到 B"的完整链路时，本 Skill 负责编排各阶段、协调子 Skill、规划攻击路径。
 > 不是"红队专属"——任何需要跨阶段组合的渗透场景都从这里开始。
@@ -643,8 +644,27 @@ touch -t 202301010000 /path/to/file
 | 攻击路径图 | `diagram-generator/SKILL.md` |
 
 
+## 常见借口与反驳 / Rationalizations
+
+| 借口 | 反驳 |
+|------|------|
+| 「单个阶段的任务也走全链路更稳」 | 单阶段直接路由到对应 specialist skill，本 skill 只负责跨阶段编排。 |
+| 「拿到一个 shell 就算打穿」 | 每个阶段 MUST 通过 `references/lifecycle-checklist.md` 门闩，并有 Evidence 支撑路径。 |
+| 「横向/提权可以先做再补授权」 | `auth.status!=granted` 禁止 ACT；新范围先更新 scope。 |
+| 「攻击路径显然成立，不用逐跳验证」 | 未验证的跳转标 `INFERRED`，报告中不得写成已打通。 |
+| 「痕迹清理/持久化顺手做了」 | 仅在 scope 明确允许时执行，并完整记录以便恢复。 |
+
+## 红旗信号 / Red Flags
+
+- 阶段推进时没有更新 `timeline.md` / `workitems.md`。
+- 路径中存在没有 Evidence ID 的跳转。
+- 超出 scope 的主机出现在攻击路径中。
+- 在生产环境执行未经确认的破坏性动作。
+- 最终报告缺少 Evidence→Finding→Path 链。
+
 ## 任务完成自检（声称完成前 MUST 通过）
 
+- [ ] **MUST** 先执行 `../meta/verification-before-completion/SKILL.md`：每条结论有本会话新鲜证据，并标注 `EXTRACTED` / `INFERRED`，报告含「未检查」小节
 - [ ] 我是否执行了工作流中的每一步（而不是只阅读）？
 - [ ] 我是否基于 `tool-index` 使用了真实工具路径？
 - [ ] 我是否产出了可复现证据（命令/脚本/截图/报告）？

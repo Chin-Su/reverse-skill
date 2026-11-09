@@ -17,6 +17,7 @@ description: |
 3. `NEXT`: 读取 `../tool-index.md`，校验工具可用性和实际路径
 4. `NEXT`: 缺工具时调用 bootstrap，不要猜路径
 5. `ACT`: 进入"工作流"第一步并执行，不要停在确认状态
+- `ON-FAIL`: 工具/脚本/hook 失败或结果异常 → `../meta/systematic-debugging/SKILL.md`；`ON-CODE`: 编写或修改脚本/PoC/patch → `../meta/surgical-changes/SKILL.md`
 
 ## 已知问题与反思（必读）
 
@@ -394,8 +395,27 @@ ida-pro-mcp --config
   - 客户端 MCP 服务器名只留 `idapro` → `http://127.0.0.1:13337/mcp`
 
 
+## 常见借口与反驳 / Rationalizations
+
+| 借口 | 反驳 |
+|------|------|
+| 「Hex-Rays 伪代码就是真实逻辑」 | 伪代码可能因函数边界、调用约定、混淆失真；关键结论对照汇编与 xrefs。 |
+| 「函数名/字符串看起来像加密，那它就是加密」 | 名字是线索；用常量特征、数据流或动态对比证实，再标 `EXTRACTED`。 |
+| 「IDA MCP 卡住，重启 IDA 就好」 | 按本文件已知问题与 `scripts/recover.ps1` 处理，不要 `taskkill` ida.exe 丢失数据库。 |
+| 「导入表看过了，可以跳过 IAT 修复记录」 | IAT/导入表结论 MUST 写入 Evidence（E-imports / E-iat-repair-fail）。 |
+| 「手写 PowerShell 打开文件更快」 | 使用 `scripts/start.ps1` / `scripts/open.ps1` 保证确定性。 |
+
+## 红旗信号 / Red Flags
+
+- 结论引用的地址/函数没有 xref 或汇编佐证。
+- 绕过 bundled scripts 直接写临时命令管理 IDA 服务。
+- 修改 IDB（重命名/patch）前没有快照或说明。
+- 对加壳样本直接分析未脱壳代码却未标注 `INFERRED`。
+- MCP 调用连续失败仍不检查服务状态。
+
 ## 任务完成自检（声称完成前 MUST 通过）
 
+- [ ] **MUST** 先执行 `../meta/verification-before-completion/SKILL.md`：每条结论有本会话新鲜证据，并标注 `EXTRACTED` / `INFERRED`，报告含「未检查」小节
 - [ ] 我是否执行了工作流中的每一步（而不是只阅读）？
 - [ ] survey/imports 是否已写入 Evidence（E-imports 或等价）？DLL/SYS 是否含 E-exports？IAT 失败是否记 E-iat-repair-fail？
 - [ ] 用户若要求重做导入表/IAT，是否重做了同一步？

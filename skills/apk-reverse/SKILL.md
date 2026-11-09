@@ -12,6 +12,7 @@ description: 在 CLI 环境下做 Android APK 逆向时使用。适用于 APK �
 3. `NEXT`: 读取 `../tool-index.md`，校验工具可用性和实际路径
 4. `NEXT`: 缺工具时调用 bootstrap，不要猜路径
 5. `ACT`: 进入"工作流"第一步并执行，不要停在确认状态
+- `ON-FAIL`: 工具/脚本/hook 失败或结果异常 → `../meta/systematic-debugging/SKILL.md`；`ON-CODE`: 编写或修改脚本/PoC/patch → `../meta/surgical-changes/SKILL.md`
 
 # APK 逆向 CLI 作业规范
 
@@ -406,8 +407,27 @@ frida -U -f com.example.app -l hook.js
 - Java 未安装（apktool 依赖 JDK）
 
 
+## 常见借口与反驳 / Rationalizations
+
+| 借口 | 反驳 |
+|------|------|
+| 「jadx 报错/输出很少，说明整个 APK 被加固」 | 先看 dex 数量、`classes*.dex` 大小、`lib/*/` 中壳特征 so 与 Application 类，再下结论。 |
+| 「静态找到了 sign 函数，结论已确定」 | 静态只是 `INFERRED`；用 Frida hook 打印入参/返回值，与抓包对比后才算确认。 |
+| 「Frida 脚本没报错，hook 就生效了」 | 没有命中日志就是没生效；检查类加载时机、重载签名、spawn vs attach。 |
+| 「直接改 smali 重打包更快」 | 先保留原 APK hash 与签名信息；能 hook 验证的先 hook，patch 走 surgical-changes。 |
+| 「逻辑在 Java 层找不到，就是没有」 | 检查 `native` 声明、`System.loadLibrary` 与 JNI 注册，切换到 so/native 分析。 |
+
+## 红旗信号 / Red Flags
+
+- 没有记录原 APK 的 SHA-256 就开始解包/修改。
+- 结论只来自 jadx 伪代码，没有任何动态证据。
+- 同一个 hook 改参数重试超过 3 次仍未进入 systematic-debugging。
+- 重打包后未验证安装与启动就宣称 patch 成功。
+- 在未授权设备或非 scope 内的应用上做动态分析。
+
 ## 任务完成自检（声称完成前 MUST 通过）
 
+- [ ] **MUST** 先执行 `../meta/verification-before-completion/SKILL.md`：每条结论有本会话新鲜证据，并标注 `EXTRACTED` / `INFERRED`，报告含「未检查」小节
 - [ ] 我是否执行了工作流中的每一步（而不是只阅读）？
 - [ ] 我是否基于 `tool-index` 使用了真实工具路径？
 - [ ] 我是否产出了可复现证据（命令/脚本/截图/报告）？

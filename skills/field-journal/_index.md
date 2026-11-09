@@ -6,10 +6,10 @@
 
 ## 统计
 
-- 真实项目数：21
+- 真实项目数：22
 - 种子参考数：17
-- 总条目数：38
-- 最近更新：2026-09-03
+- 总条目数：39
+- 最近更新：2026-10-31
 
 ## 按场景分类
 
@@ -58,6 +58,7 @@
 
 ### iOS 逆向
 
+- [2026-10-31 Unity IL2CPP 元数据头加扰与资源密钥推导（英文条目）](./2026-10-31_unity-il2cpp-scrambled-metadata-resource-key.md)
 - [[种子] seed-009_ios-jailbr&#101;ak-detect-bypass](./seed-009_ios-jailbr%65ak-detect-bypass.md)
 
 ### 工具链与环境
@@ -81,6 +82,10 @@
 - [Resolve-ReverseHostExe 统一子进程入口、r2 .bat fallback、StrictMode hashtable 安全访问](./2026-08-17_tool-index-r2-fallback-powershell-pwsh-host-fix.md)
 - [原生命令后立即保存退出码、Windows PowerShell 5.1 实宿主复现、PR head 固定](./2026-08-14_windows-powershell-native-exit-code-pr-review.md)
 - [单一 routing.json、多入口 parity、实际安装命令 pin](./2026-08-08_client-neutral-structured-routing-pr-integration.md)
+
+### IL2CPP 元数据保护与资源密钥
+
+- [修改 sanity 常量定位加载器、模拟头部解扰、code-gen 模块建方法表、PKCS7 填充验证密钥、加解密往返作为证明](./2026-10-31_unity-il2cpp-scrambled-metadata-resource-key.md)
 
 ### 固件自定义封装
 

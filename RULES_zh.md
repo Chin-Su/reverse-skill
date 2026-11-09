@@ -349,6 +349,8 @@ AI Agent 在遇到阻力时会自动生成"合理借口"来跳过步骤。以下
 
 ## 任务完成自检（声称完成前 MUST 逐项自我审计）
 
+> 声称完成前 MUST 先执行 `skills/meta/verification-before-completion/SKILL.md` 的完成门：每条结论有本会话新鲜证据，标注 `EXTRACTED` / `INFERRED`，报告含「未检查」小节。此门与下方自检互补，不相互替代。
+
 在你说"任务完成"或"已完成"之前，必须先用以下清单自检：
 
 ```text
